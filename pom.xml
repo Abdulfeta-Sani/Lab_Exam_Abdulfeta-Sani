@@ -8,15 +8,28 @@
 		<version>3.3.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.itsc.com</groupId>
-	<artifactId>Spring-ioc</artifactId>
+	<groupId>com.itsc.ioc</groupId>
+	<artifactId>lab_exam</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Spring-ioc</name>
-	<description>Demo project for IOC</description>
+	<name>lab_exam</name>
+	<description>lab exam EnterpriseApplicationDevelopment </description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
+	
+    <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>8.0.28</version>
+    </dependency>
+    <!-- Spring Context dependency -->
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+    </dependency>
+
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
@@ -27,6 +40,8 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
+		
 	</dependencies>
 
 	<build>

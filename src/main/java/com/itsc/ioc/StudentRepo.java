@@ -1,50 +1,39 @@
-package com.itsc.ioc;
+package com.itsc.ioc.lab_exam;
 
 import java.sql.*;
 
 public class StudentRepo {
+    private String url = "jdbc:mysql://localhost:3306/";
+    private String user = "root";
+    private String password = "mysql@4581!";
 
-	public static void main(String[] args) {
-//			 public void createDBAndTable() {  }
-//			 public void insertIntoTable(Student student) { 
-//			}
-//		}
-		String driver = "com.mysql.cj,jdbc.Driver";
-		String url = "jdbc:mysql://localhost:3306/";
-		String username = "root";
-		String password = "mysql@4581!";
-		String databaseName = "StudentsDB";
-		String tableName = "students";
-		
-		Connection connection = null;
-		Statement statement = null;
-		
-		try {
-			
-			connection = DriverManager.getConnection(url, username, password);
-			System.out.println("Connected");
-			statement = connection.createStatement();
-			
-			String createDatabase = "CREATE DATABASE " + databaseName;
-			String database = "USE " + databaseName;
-			String createTable = "CREATE TABLE " + tableName + " (id int auto_increment primary key, name varchar(255), last_name varchar(255), email varchar(255));";
-			statement.executeUpdate(createDatabase);
-			statement.executeUpdate(database);
-			statement.executeUpdate(createTable);
-			System.out.println("Database created");
- 
-			String[] datas = {"INSERT INTO " + tableName + " (id, name, email) VALUE ('4581', 'Abdulfeta Sani', 'abdulfetasani128@gmail.com');"};
-			
-			statement.executeUpdate(database);
-			
-			for (String data: datas) {
-				statement.executeUpdate(data);
-			}
-			
-			System.out.println("Data inserted successfully!");
-		
-		} catch (Exception SQLException) {
-			SQLException.printStackTrace();
-			}
-	}
+    public void createDBAndTable() {
+        try (Connection connection = DriverManager.getConnection(url, user, password);
+             Statement statement = connection.createStatement()) {
+
+            String sqlCreateDB = "CREATE DATABASE IF NOT EXISTS StudentsDB";
+            statement.executeUpdate(sqlCreateDB);
+
+            String sqlUseDB = "USE StudentsDB";
+            statement.executeUpdate(sqlUseDB);
+
+            String sqlCreateTable = "CREATE TABLE IF NOT EXISTS Student (" + "id INT PRIMARY KEY AUTO_INCREMENT, " + "name VARCHAR(50), " + "email VARCHAR(50))";
+            statement.executeUpdate(sqlCreateTable);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void insertIntoTable(Student student) {
+        try (Connection connection = DriverManager.getConnection(url + "LabExamDB", user, password);
+             Statement statement = connection.createStatement()) {
+
+            String sqlInsert = "INSERT INTO Student (name, email) VALUES ('" + student.getName() + "', '" + student.getEmail() + "')";
+            statement.executeUpdate(sqlInsert);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
